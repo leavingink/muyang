@@ -39,6 +39,8 @@ def handle_message(event):
 def Reply(text):
     if text.find("Hi")!=-1:
         return TextSendMessage(text = "Hello")
+    else:
+        return text
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
