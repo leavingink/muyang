@@ -38,7 +38,7 @@ def handle_message(event):
 
 def Reply(text):
     if text.find("Hi")!=-1:
-        return text = "Hello"
+        return text = "ㄤㄤ"
     else:
         return text
 import os
