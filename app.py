@@ -41,7 +41,7 @@ def Reply(text):
     list = ["三民金城武", "高醫彭于晏", "呼吸孔劉"]
     if text.find("Hi")!=-1:
         return "ㄤㄤ"
-    elif text.find("泓儒" or "卡巴拉斯" or "Caballas")!=-1:
+    elif text.find("泓儒")!=-1:
         return text = random.choice(list)
     else:
         return text
