@@ -39,11 +39,11 @@ def handle_message(event):
 
 def Reply(text):
     caballas = ['三民金城武', '高醫彭于晏', '呼吸孔劉']
-	fallenleaf = ['61487', '8761']
+	#fallenleaf = ['61487', '8761']
     if text.find('泓儒')!=-1:
-        return random.choice(caballas)
+		return random.choice(caballas)
 	else:
-        return text
+		return text
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
