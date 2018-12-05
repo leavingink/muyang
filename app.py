@@ -42,7 +42,7 @@ def Reply(text):
 	fallenleaf = ['61487', '8761']
     if text.find('泓儒')!=-1:
         return random.choice(caballas)
-	elif text.find('殘楓落葉')!= -1:
+	if text.find('殘楓落葉')!= -1:
 		return random.choice(fallenleaf)
     else:
         return text
