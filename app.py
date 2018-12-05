@@ -40,7 +40,7 @@ def handle_message(event):
 def Reply(text):
     #caballas = ['三民金城武', '高醫彭于晏', '呼吸孔劉']
     if text.find('泓儒')!=-1:
-        return text = random.choice(['三民金城武', '高醫彭于晏', '呼吸孔劉'])
+        return random.choice(['三民金城武', '高醫彭于晏', '呼吸孔劉'])
     else:
         return text
 import os
