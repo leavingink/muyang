@@ -39,9 +39,11 @@ def handle_message(event):
 
 def Reply(text):
     caballas = ['三民金城武', '高醫彭于晏', '呼吸孔劉']
-	name = ['泓儒', 'Caballas', '卡巴拉斯']
-    if text.find(name)!=-1:
+	fallenleaf = ['61487', '8761']
+    if text.find('泓儒')!=-1:
         return random.choice(caballas)
+	elif text.find('殘楓落葉')!= -1:
+		return random.choice(fallenleaf)
     else:
         return text
 import os
