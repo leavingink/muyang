@@ -52,7 +52,7 @@ def Button(event):
 		TemplateSendMessage(
 				alt_text='yeeee',
 				template=ButtonsTemplate(
-					thumbnail_image='test.jpg',
+					thumbnail_image_uri='test.jpg',
 					title='標題',
 					text='內容',
 					actions=[
