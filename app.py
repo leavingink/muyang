@@ -46,6 +46,7 @@ def Reply(event):
 	else:
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text = event.message.text))
+#按鈕
 def Button(event):
 	message = TemplateSendMessage(
 		alt_text='yeeeee',
@@ -69,7 +70,7 @@ def Button(event):
 			]
 		)
 	)
-line_bot_api.reply_message(event.reply_token, message)
+	line_bot_api.reply_message(event.reply_token, message)
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
