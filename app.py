@@ -32,7 +32,8 @@ def callback():
     return 'OK'
 #關鍵字
 def KeyWord(text):
-	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉":"61487"}
+	KeyWordDict = {"泓儒":"高醫彭于晏",
+					"殘楓落葉":"61487"}
 	for k in KeyWordDict.keys():
 		if text.find(k) != -1:
 			return [True, KeyWordDict[k]]
