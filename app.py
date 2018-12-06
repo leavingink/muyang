@@ -52,7 +52,7 @@ def Button(event):
 		TemplateSendMessage(
 				alt_text='yeeee',
 				template=ButtonsTemplate(
-					thumbnail_image_uri='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
+					thumbnail_image_uri='https://raw.githubusercontent.com/leavingink/muyang/master/2fdda3cc7cd98d10fa194dcd2a3fb80e7aec9079.jpg',
 					title='Eternal',
 					text='呼叫',
 					actions=[
