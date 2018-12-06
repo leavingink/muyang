@@ -30,23 +30,31 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
+#關鍵字
+def KeyWord(text):
+	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉","61487"}
+	for k in KeyWordDict.keys():
+		if text.find(k) != -1:
+			return [True, KeyWordDict[k]]
+		return [False]
+
+def Reply(event):
+	Ktemp = KeyWord(evet.message.text)
+	if Ktemp[0]:
+		line_bot_api.reply_message(event.reply_token, 
+			TextSendMessage(text = Ktemp[1]))
+	else:
+		line_bot_api.reply_message(event.reply_token,
+			TextSendMessage(text = event.message.text))
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text = Reply(event.message.text))
-    line_bot_api.reply_message(event.reply_token, message)
-
-def Reply(text):
-    caballas = ['三民金城武', '高醫彭于晏', '呼吸孔劉']
-	fallenleaf = ['61487', '8761']
-    if text.find('泓儒')!=-1:
-		text = random.choice(caballas)
-	elif text.find('殘楓落葉')!=-1:
-		text = random.choice(fallenleaf)
-	else:
-		text = text
-	return text
+	try:
+		Reply(event)
+	except Exception as e:
+		line_bot_api.reply_message(event.reply_token,
+			TextSendMessage(text=str(e)))
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
