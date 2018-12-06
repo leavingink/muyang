@@ -52,21 +52,21 @@ def Button(event):
 		TemplateSendMessage(
 				alt_text='yeeee',
 				template=ButtonsTemplate(
-					thumbnail_image_uri='test.jpg',
-					title='標題',
-					text='內容',
+					thumbnail_image_uri='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
+					title='Eternal',
+					text='呼叫',
 					actions=[
 						MessageTemplateAction(
-							label='按鈕文字',
-							text='發話文字'
+							label='蔡育霖',
+							text='002788'
 						),
 						MessageTemplateAction(
-							label='按鈕文字',
-							text='發話文字'
+							label='董倫弘',
+							text='61487'
 						),
 						MessageTemplateAction(
-							label='按鈕文字',
-							text='發話文字'
+							label='陳俊桐',
+							text='41269'
 						)
 					]
 				)
