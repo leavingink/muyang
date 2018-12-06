@@ -2,10 +2,10 @@ import random
 from flask import Flask, request, abort
 
 from linebot import (
-    LineBotApi, WebhookHandler
+	LineBotApi, WebhookHandler
 )
 from linebot.exceptions import (
-    InvalidSignatureError
+	InvalidSignatureError
 )
 from linebot.models import *
 
@@ -19,24 +19,24 @@ handler = WebhookHandler('ec91f3c5fbdb8ddee9637a87fde5098b')
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
-    # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
-    # handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
+	# get X-Line-Signature header value
+	signature = request.headers['X-Line-Signature']
+	# get request body as text
+	body = request.get_data(as_text=True)
+	app.logger.info("Request body: " + body)
+	# handle webhook body
+	try:
+		handler.handle(body, signature)
+	except InvalidSignatureError:
+		abort(400)
+	return 'OK'
 #關鍵字
 def KeyWord(text):
 	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉":"61487","牧羊":"咩~"}
 	for k in KeyWordDict.keys():
 		if text.find(k) != -1:
 			return [True, KeyWordDict[k]]
-		return [False]
+	return [False]
 
 def Reply(event):
 	Ktemp = KeyWord(event.message.text)
@@ -52,12 +52,12 @@ def Button(event):
 		template=ButtonsTemplate(
 			thumbnail_image_url='sheep.png',
 			title='題目',
-			text='測試',
+			text='誰最87',
 			actions=[
 				PostbackTemplateAction(
 					label='TEST',
 					text='TEST!!!',
-					data='action=buy&itemid=1'
+					data=''
 				),
 				MessageTemplateAction(
 					label='殘楓落葉',
