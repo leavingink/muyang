@@ -32,9 +32,7 @@ def callback():
     return 'OK'
 #關鍵字
 def KeyWord(text):
-	KeyWordDict = {"泓儒":"高醫彭于晏",
-					"殘楓落葉":"61487",
-					"牧羊":"咩~"}
+	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉":"61487","牧羊":"咩~"}
 	for k in KeyWordDict.keys():
 		if text.find(k) != -1:
 			return [True, KeyWordDict[k]]
@@ -50,27 +48,27 @@ def Reply(event):
 			TextSendMessage(text = event.message.text))
 def Button(event):
 	message = TemplateSendMessage(
-    	alt_text='yeeeee',
-    	template=ButtonsTemplate(
-        	thumbnail_image_url='sheep.png',
-        	title='題目',
-        	text='測試',
-        	actions=[
-            	PostbackTemplateAction(
-                	label='TEST',
-                	text='TEST!!!',
-                	data='action=buy&itemid=1'
-            	),
-            	MessageTemplateAction(
-                	label='殘楓落葉',
-                	text='61487'
-            	),
-            	URITemplateAction(
-                	label='Youtube',
-                	uri='https://www.youtube.com/?hl=zh-CN'
-            	)
-        	]
-    	)
+		alt_text='yeeeee',
+		template=ButtonsTemplate(
+			thumbnail_image_url='sheep.png',
+			title='題目',
+			text='測試',
+			actions=[
+				PostbackTemplateAction(
+					label='TEST',
+					text='TEST!!!',
+					data='action=buy&itemid=1'
+				),
+				MessageTemplateAction(
+					label='殘楓落葉',
+					text='61487'
+				),
+				URITemplateAction(
+					label='Youtube',
+					uri='https://www.youtube.com/?hl=zh-CN'
+				)
+			]
+		)
 	)
 line_bot_api.reply_message(event.reply_token, message)
 
@@ -85,5 +83,5 @@ def handle_message(event):
 			TextSendMessage(text=str(e)))
 import os
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+	port = int(os.environ.get('PORT', 5000))
+	app.run(host='0.0.0.0', port=port)
