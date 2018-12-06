@@ -54,18 +54,17 @@ def Button(event):
 			title='題目',
 			text='誰最87',
 			actions=[
-				PostbackTemplateAction(
-					label='TEST',
-					text='TEST!!!',
-					data=''
+				MessageTemplateAction(
+					label='蔡育霖',
+					text='002788'
 				),
 				MessageTemplateAction(
-					label='殘楓落葉',
+					label='董倫弘',
 					text='61487'
 				),
-				URITemplateAction(
-					label='Youtube',
-					uri='https://www.youtube.com/?hl=zh-CN'
+				MessageTemplateAction(
+					label='陳俊桐',
+					text='41269'
 				)
 			]
 		)
@@ -76,8 +75,8 @@ line_bot_api.reply_message(event.reply_token, message)
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 	try:
-		#Button(event)
-		Reply(event)
+		Button(event)
+		#Reply(event)
 	except Exception as e:
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text=str(e)))
