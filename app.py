@@ -39,7 +39,7 @@ def KeyWord(text):
 		return [False]
 
 def Reply(event):
-	Ktemp = KeyWord(evet.message.text)
+	Ktemp = KeyWord(event.message.text)
 	if Ktemp[0]:
 		line_bot_api.reply_message(event.reply_token, 
 			TextSendMessage(text = Ktemp[1]))
