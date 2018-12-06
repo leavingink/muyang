@@ -49,29 +49,29 @@ def Reply(event):
 #按鈕
 def Button(event):
 	message = TemplateSendMessage(
-		alt_text='yeeeee',
-		template=ButtonsTemplate(
-			thumbnail_image_url='sheep.png',
-			title='題目',
-			text='誰最87',
-			actions=[
-				MessageTemplateAction(
-					label='蔡育霖',
-					text='002788'
-				),
-				MessageTemplateAction(
-					label='董倫弘',
-					text='61487'
-				),
-				MessageTemplateAction(
-					label='陳俊桐',
-					text='41269'
-				)
-			]
+			alt_text='yeeee',
+			template=ButtonsTemplate(
+				thumbnail_image='sheep.png',
+				title='標題',
+				text='內容',
+				actions=[
+					MessageTemplateAction(
+						label='按鈕文字',
+						text='發話文字'
+					),
+					MessageTemplateAction(
+						label='按鈕文字',
+						text='發話文字'
+					),
+					MessageTemplateAction(
+						label='按鈕文字',
+						text='發話文字'
+					)
+				]
+			)
 		)
 	)
 	line_bot_api.reply_message(event.reply_token, message)
-
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
