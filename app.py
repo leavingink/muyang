@@ -75,7 +75,7 @@ def Reply(event):
 			Button(event))
 	elif even.message.text == "取得ID":
 		line_bot_api.reply_message.(event.reply_token,
-			event.sour.user_id)
+			TextSendMessage(text = event.sour.user_id)
 	#else:
 		#line_bot_api.reply_message(event.reply_token,
 			#TextMessage(text = event.message.text))
