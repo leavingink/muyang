@@ -31,7 +31,7 @@ def callback():
 	return 'OK'
 #關鍵字
 def KeyWord(event):
-	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉":"61487","牧羊":"咩~","取得ID":event.source.user_id}
+	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉":"61487","牧羊":"咩~"}
 	for k in KeyWordDict.keys():
 		if event.message.text.find(k) != -1:
 			return [True, KeyWordDict[k]]
@@ -73,6 +73,9 @@ def Reply(event):
 	elif event.message.text == "呼叫":
 		line_bot_api.reply_message(event.reply_token,
 			Button(event))
+	elif even.message.text == "取得ID":
+		line_bot_api.reply_message.(event.reply_token,
+			event.sour.user_id)
 	#else:
 		#line_bot_api.reply_message(event.reply_token,
 			#TextMessage(text = event.message.text))
