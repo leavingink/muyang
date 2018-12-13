@@ -1,4 +1,3 @@
-import random
 from flask import Flask, request, abort
 
 from linebot import (
@@ -37,7 +36,7 @@ def KeyWord(text):
 		if text.find(k) != -1:
 			return [True, KeyWordDict[k]]
 	return [False]
-
+#回復函式
 def Reply(event):
 	Ktemp = KeyWord(event.message.text)
 	if Ktemp[0]:
@@ -45,8 +44,8 @@ def Reply(event):
 			TextSendMessage(text = Ktemp[1]))
 	else:
 		line_bot_api.reply_message(event.reply_token,
-			TextSendMessage(text = event.message.text))
-#按鈕
+			Button(event))
+#按鈕版面
 def Button(event):
 	line_bot_api.reply_message(event.reply_token,
 		TemplateSendMessage(
@@ -56,17 +55,17 @@ def Button(event):
 					title='Eternal',
 					text='呼叫',
 					actions=[
-						MessageTemplateAction(
-							label='蔡育霖',
-							text='002788'
+						PostbackTemplateAction(
+							label='夜小夢',
+							data=''
 						),
 						MessageTemplateAction(
 							label='董倫弘',
 							text='61487'
 						),
-						MessageTemplateAction(
-							label='陳俊桐',
-							text='41269'
+						URITemplateAction(
+							label='按讚',
+							uri='https://www.facebook.com/ShuHPclub'
 						)
 					]
 				)
@@ -76,8 +75,7 @@ def Button(event):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 	try:
-		Button(event)
-		#Reply(event)
+		Reply(event)
 	except Exception as e:
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text=str(e)))
