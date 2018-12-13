@@ -45,17 +45,17 @@ def Button(event):
 			title='Eternal',
 			text='呼叫',
 			actions=[
-				MessageTemplateAction(
+				PostbackTemplateAction(
 					label='陳俊桐',
-					text='41269'
+					data='陳俊桐'
 				),
-				MessageTemplateAction(
+				PostbackTemplateAction(
 					label='董倫弘',
-					text='61487'
+					data='董倫弘'
 				),
 				PostbackTemplateAction(
 					label='蔡育霖',
-					data='002788'
+					data='蔡育霖'
 				)
 			]
 		)
@@ -84,9 +84,15 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_postback(event):
 	command = event.postback.data.split(',')
-	if command[0] == "002788":
+	if command[0] == "蔡育霖":
 		line_bot_api.reply_message(event.reply_token,
-			TextSendMessage(text="4汁妹王"))
+			TextSendMessage(text="002788"))
+	elif command[0] == "董倫弘":
+		line_bot_api.reply_message(event.reply_token,
+			TextSendMessage(text="61487"))
+	elif command[0] == "陳俊桐":
+		line_bot_api.reply_message(event.reply_token,
+			TextSendMessage(text="41269"))
 import os
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 5000))
