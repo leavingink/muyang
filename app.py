@@ -53,9 +53,9 @@ def Button(event):
 					label='董倫弘',
 					text='61487'
 				),
-				MessageTemplateAction(
+				PostbackTemplateAction(
 					label='蔡育霖',
-					text='002788'
+					data='002788'
 				)
 			]
 		)
@@ -80,6 +80,13 @@ def handle_message(event):
 	except Exception as e:
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text=str(e)))
+#處理PostBack
+@handler.add(PostbackEvent)
+def handle_postback(event):
+	command = event.postback.data.split(',')
+	if command[0] == "002788":
+		line_bot_api.reply_message(event.reply_token,
+			TextSendMessage(text="4汁妹王"))
 import os
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 5000))
