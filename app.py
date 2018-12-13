@@ -73,9 +73,9 @@ def Reply(event):
 	elif event.message.text == "呼叫":
 		line_bot_api.reply_message(event.reply_token,
 			Button(event))
-	elif event.message.text == "取得ID":
-		line_bot_api.push_message(event.source.user_id,
-			TextSendMessage(text = event.source.user_id)
+	#elif event.message.text == "取得ID":
+		#line_bot_api.push_message(event.source.user_id,
+			#TextSendMessage(text = event.source.user_id)
 	#else:
 		#line_bot_api.reply_message(event.reply_token,
 			#TextMessage(text = event.message.text))
@@ -96,7 +96,7 @@ def handle_postback(event):
 	if command[0] == "蔡育霖":
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text="002788"))
-		line_bot_api.push_message(event.source.user_id, TextSendMessage(text="汁妹王"))
+		line_bot_api.push_message(event.source.user_id, TextSendMessage(text=event.source.user_id))
 	elif command[0] == "董倫弘":
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text="61487"))
