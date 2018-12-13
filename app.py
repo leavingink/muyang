@@ -35,6 +35,8 @@ def KeyWord(event):
 	for k in KeyWordDict.keys():
 		if event.message.text.find(k) != -1:
 			return [True, KeyWordDict[k]]
+		elif event.message.text == "!呼叫":
+			return[True, Button(event)]
 	return [False]
 #按鈕版面
 def Button(event):
@@ -46,7 +48,7 @@ def Button(event):
 			text='呼叫',
 			actions=[
 				PostbackTemplateAction(
-					label='夜小夢',
+					label='沒作用',
 					data='這裡留空就好,不要刪掉'
 				),
 				MessageTemplateAction(
@@ -68,7 +70,7 @@ def Reply(event):
 			TextSendMessage(text = Ktemp[1]))
 	else:
 		line_bot_api.reply_message(event.reply_token,
-			Button(event))
+			TextMessage(text = event.message.text))
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
