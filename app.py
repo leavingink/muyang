@@ -87,6 +87,7 @@ def handle_postback(event):
 	if command[0] == "蔡育霖":
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text="002788"))
+		line_bot_api.push_message(event.source.user_id, TextSendMessage(text="汁妹王"))
 	elif command[0] == "董倫弘":
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text="61487"))
