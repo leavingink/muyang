@@ -47,7 +47,7 @@ def Reply(event):
 #按鈕版面
 def Button(event):
 	line_bot_api.reply_message(event.reply_token,
-		TemplateSendMessage(
+		return TemplateSendMessage(
 				alt_text='yeeee',
 				template=ButtonsTemplate(
 					thumbnail_image_url='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
