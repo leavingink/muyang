@@ -62,20 +62,20 @@ def Button(event):
 	)
 #回復函式
 def Reply(event):
-	tempText = event.message.text.split(",")
+	#tempText = event.message.text.split(",")
 	#if tempText[0] == "發送" and event.source.user_id == "U5322443a06ba30277383a7f5af47d3f8":
 		#line_bot_api.push_message(tempText[1], TextSendMessage(text = tempText[2]))
 	#else:
-		Ktemp = KeyWord(event)
-		if Ktemp[0]:
-			line_bot_api.reply_message(event.reply_token, 
-				TextSendMessage(text = Ktemp[1]))
-		elif event.message.text == "呼叫":
-			line_bot_api.reply_message(event.reply_token,
-				Button(event))
-		elif event.message.text == "取得ID":
-			line_bot_api.reply_message(event.reply_token,
-				TextSendMessage(text = event.source.user_id)
+	Ktemp = KeyWord(event)
+	if Ktemp[0]:
+		line_bot_api.reply_message(event.reply_token, 
+			TextSendMessage(text = Ktemp[1]))
+	elif event.message.text == "呼叫":
+		line_bot_api.reply_message(event.reply_token,
+			Button(event))
+	elif event.message.text == "取得ID":
+		line_bot_api.reply_message(event.reply_token,
+			TextSendMessage(text = event.source.user_id)
 	#else:
 		#line_bot_api.reply_message(event.reply_token,
 			#TextMessage(text = event.message.text))
