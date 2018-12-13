@@ -73,7 +73,7 @@ def Reply(event):
 	elif event.message.text == "呼叫":
 		line_bot_api.reply_message(event.reply_token,
 			Button(event))
-	elif even.message.text == "取得ID":
+	elif event.message.text == "取得ID":
 		line_bot_api.reply_message.(event.reply_token,
 			TextSendMessage(text = event.sour.user_id)
 	#else:
