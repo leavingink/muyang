@@ -43,8 +43,7 @@ def Reply(event):
 		line_bot_api.reply_message(event.reply_token, 
 			TextSendMessage(text = Ktemp[1]))
 	else:
-		line_bot_api.reply_message(event.reply_token,
-			Button(event))
+		line_bot_api.reply_message(event.reply_token,Button(event))
 #按鈕版面
 def Button(event):
 	line_bot_api.reply_message(event.reply_token,
