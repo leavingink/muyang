@@ -45,17 +45,17 @@ def Button(event):
 			title='Eternal',
 			text='呼叫',
 			actions=[
-				PostbackTemplateAction(
-					label='沒作用',
-					data='這裡留空就好,不要刪掉'
+				MessageTemplateAction(
+					label='陳俊桐',
+					text='41269'
 				),
 				MessageTemplateAction(
 					label='董倫弘',
 					text='61487'
 				),
-				URITemplateAction(
-					label='按讚',
-					uri='https://www.facebook.com/ShuHPclub'
+				MessageTemplateAction(
+					label='蔡育霖',
+					text='002788'
 				)
 			]
 		)
@@ -69,9 +69,9 @@ def Reply(event):
 	elif event.message.text == "呼叫":
 		line_bot_api.reply_message(event.reply_token,
 			Button(event))
-	else:
-		line_bot_api.reply_message(event.reply_token,
-			TextMessage(text = event.message.text))
+	#else:
+		#line_bot_api.reply_message(event.reply_token,
+			#TextMessage(text = event.message.text))
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
