@@ -39,26 +39,25 @@ def KeyWord(event):
 #按鈕版面
 def Button(event):
 	return TemplateSendMessage(
-			alt_text='yeeee',
-			template=ButtonsTemplate(
-				thumbnail_image_url='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
-				title='Eternal',
-				text='呼叫',
-				actions=[
-					PostbackTemplateAction(
-						label='夜小夢',
-						data=''
-					),
-					MessageTemplateAction(
-						label='董倫弘',
-						text='61487'
-					),
-					URITemplateAction(
-						label='按讚',
-						uri='https://www.facebook.com/ShuHPclub'
-					)
-				]
-			)
+		alt_text='yeeee',
+		template=ButtonsTemplate(
+			thumbnail_image_url='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
+			title='Eternal',
+			text='呼叫',
+			actions=[
+				PostbackTemplateAction(
+					label='夜小夢',
+					data=''
+				),
+				MessageTemplateAction(
+					label='董倫弘',
+					text='61487'
+				),
+				URITemplateAction(
+					label='按讚',
+					uri='https://www.facebook.com/ShuHPclub'
+				)
+			]
 		)
 	)
 #回復函式
