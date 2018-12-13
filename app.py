@@ -30,10 +30,10 @@ def callback():
 		abort(400)
 	return 'OK'
 #關鍵字
-def KeyWord(text):
+def KeyWord(event):
 	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉":"61487","牧羊":"咩~"}
 	for k in KeyWordDict.keys():
-		if text.find(k) != -1:
+		if event.message.text.find(k) != -1:
 			return [True, KeyWordDict[k]]
 	return [False]
 #按鈕版面
