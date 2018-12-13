@@ -65,17 +65,18 @@ def Reply(event):
 	tempText = event.message.text.split(",")
 	if tempText[0] == "發送" and event.source.user_id == "U391682f77f3c4ed336be50e7f4f9e9f0":
 		line_bot_api.push_message(tempText[1], TextSendMessage(text = tempText[2]))
-	if tempTxt
-	Ktemp = KeyWord(event)
-	if Ktemp[0]:
-		line_bot_api.reply_message(event.reply_token, 
-			TextSendMessage(text = Ktemp[1]))
-	elif event.message.text == "呼叫":
-		line_bot_api.reply_message(event.reply_token,
-			Button(event))
-	elif event.message.text == "取得ID":
-		line_bot_api.reply_message.(event.reply_token,
-			TextSendMessage(text = event.sour.user_id)
+	else:
+
+		Ktemp = KeyWord(event)
+		if Ktemp[0]:
+			line_bot_api.reply_message(event.reply_token, 
+				TextSendMessage(text = Ktemp[1]))
+		elif event.message.text == "呼叫":
+			line_bot_api.reply_message(event.reply_token,
+				Button(event))
+		elif event.message.text == "取得ID":
+			line_bot_api.reply_message.(event.reply_token,
+				TextSendMessage(text = event.sour.user_id)
 	#else:
 		#line_bot_api.reply_message(event.reply_token,
 			#TextMessage(text = event.message.text))
