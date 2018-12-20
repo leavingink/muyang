@@ -29,7 +29,32 @@ def callback():
 	except InvalidSignatureError:
 		abort(400)
 	return 'OK'
-#關鍵字
+#會員系統
+def GetUserlist():
+	userlist = {}
+	file = open("users","r")
+	while True:
+		temp = file.readline().strip().split(",")
+		if temp[0] == "" : break
+		userlist[temp[0]] = temp[1]
+	file.close()
+	return userlist
+
+#登入系統
+def  Login(event, userlist):
+	i = 0
+	for user in userlist.keys():
+		if event.source.user_id == user:
+			return i
+		i+=1
+	return -1
+#寫入資料
+def Update(userlist):
+	file = open("users","w")
+	for user in userlist.keys():
+		file.write(user + "," + userlist[user])
+	file.close()
+#關鍵字系統
 def KeyWord(event):
 	KeyWordDict = {"泓儒":["text","高醫彭于晏"],
 					"殘楓落葉":["text","61487"],
@@ -80,19 +105,39 @@ def Command(event):
 	else:
 		return False
 #回復函式
-def Reply(event):
+def Reply(event, userlist):
 	if not Command(event):
 		if  not KeyWord(event):
 			if event.message.text == "呼叫":
 				Button(event)
+			else:
+				if userlist[event.source.user_id] == "-1":
+					line_bot_api.reply_message(event.reply_token,
+						TextSendMessage(text = "你知道台灣最稀有、最浪漫的鳥是哪一種鳥嗎?"))
+				userlist[event.source.user_id] = "0"
+				else:
+					if event.message.text == "黑面琵鷺":
+						line_bot_api.reply_message(event.reply_token,
+							TextSendMessage(text = "你竟然知道答案!!!"))
+					else:
+						line_bot_api.reply_message(event.reply_token,
+							TextSendMessage(text = "答案是：黑面琵鷺!!!因為每年冬天，他們都會到台灣來\"壁咚\""))
+					userlist[event.source.user_id] = "-1"
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 	try:
-		Reply(event)
-		if event.source.user_id != "U5322443a06ba30277383a7f5af47d3f8":
+		userlist = GetUserlist()
+		clientindex = Login(event, userlist)
+		if clientindex > -1:
+			Reply(event, userlist)
+			if event.source.user_id != "U5322443a06ba30277383a7f5af47d3f8":
 			line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.source.user_id))
 			line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.message.text))
+		else:
+			userlist[event.source.user_id] = "-1":
+			line_bot_api.reply_message(event.reply_token,
+				TextSendMessage(text = "註冊成功"))
 	except Exception as e:
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text=str(e)))
