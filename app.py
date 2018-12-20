@@ -84,7 +84,7 @@ def Reply(event):
 def handle_message(event):
 	try:
 		Reply(event)
-		if (event.source.user_id != U5322443a06ba30277383a7f5af47d3f8):
+		if event.source.user_id != U5322443a06ba30277383a7f5af47d3f8:
 			line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.source.user_id))
 			line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.message.text))
 	except Exception as e:
