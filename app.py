@@ -135,7 +135,7 @@ def handle_message(event):
 				line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.source.user_id))
 				line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.message.text))
 		else:
-			userlist[event.source.user_id] = "-1":
+			userlist[event.source.user_id] = "-1";
 			line_bot_api.reply_message(event.reply_token,
 				TextSendMessage(text = "註冊成功"))
 	except Exception as e:
