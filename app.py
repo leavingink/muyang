@@ -41,7 +41,7 @@ def GetUserlist():
 	return userlist
 
 #登入系統
-def  Login(event, userlist):
+def Login(event, userlist):
 	i = 0
 	for user in userlist.keys():
 		if event.source.user_id == user:
