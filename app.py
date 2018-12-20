@@ -132,12 +132,13 @@ def handle_message(event):
 		if clientindex > -1:
 			Reply(event, userlist)
 			if event.source.user_id != "U5322443a06ba30277383a7f5af47d3f8":
-				line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.source.user_id))
+				line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.source.user_id + "說:"))
 				line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.message.text))
 		else:
 			userlist[event.source.user_id] = "-1";
 			line_bot_api.reply_message(event.reply_token,
 				TextSendMessage(text = "註冊成功"))
+		Update(userlist)
 	except Exception as e:
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text=str(e)))
