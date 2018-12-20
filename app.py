@@ -84,7 +84,7 @@ def Reply(event):
 def handle_message(event):
 	try:
 		Reply(event)
-		if event.source.user_id != U5322443a06ba30277383a7f5af47d3f8:
+		if event.source.user_id != "U5322443a06ba30277383a7f5af47d3f8":
 			line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.source.user_id))
 			line_bot_api.push_message("U5322443a06ba30277383a7f5af47d3f8", TextSendMessage(text = event.message.text))
 	except Exception as e:
@@ -104,6 +104,15 @@ def handle_postback(event):
 	elif command[0] == "陳俊桐":
 		line_bot_api.reply_message(event.reply_token,
 			TextSendMessage(text="41269"))
+#處理貼圖
+@handler.add(MessageEvent, message=StickerMessage)
+def handle_sticker_message(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        StickerSendMessage(
+            package_id=event.message.package_id,
+            sticker_id=event.message.sticker_id)
+    )
 import os
 if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 5000))
