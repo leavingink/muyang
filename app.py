@@ -35,6 +35,7 @@ def KeyWord(event):
 					"殘楓落葉":["text","61487"],
 					"牧羊":["text","咩~"],
 					"愛你":["sticker","11537","52002743"]}
+	
 	for k in KeyWordDict.keys():
 		if event.message.text.find(k) != -1:
 			if KeyWordDict[k][0] == "text":
@@ -42,45 +43,48 @@ def KeyWord(event):
 			elif KeyWordDict[k][0] == "sticker":
 				line_bot_api.reply_message(event.reply_token, StickerSendMessage(package_id = KeyWordDict[k][1],
 																				sticker_id = KeyWordDict[k][2]))
-			return [True, KeyWordDict[k]]
-	return [False]
+			return True
+	return False
 #按鈕版面
 def Button(event):
-	return TemplateSendMessage(
-		alt_text='yeeee',
-		template=ButtonsTemplate(
-			thumbnail_image_url='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
-			title='Eternal',
-			text='呼叫',
-			actions=[
-				PostbackTemplateAction(
-					label='陳俊桐',
-					data='陳俊桐'
-				),
-				PostbackTemplateAction(
-					label='董倫弘',
-					data='董倫弘'
-				),
-				PostbackTemplateAction(
-					label='蔡育霖',
-					data='蔡育霖'
-				)
-			]
+	line_bot_api.reply_message(event.reply_token,
+		TemplateSendMessage(
+			alt_text='yeeee',
+			template=ButtonsTemplate(
+				thumbnail_image_url='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
+				title='Eternal',
+				text='呼叫',
+				actions=[
+					PostbackTemplateAction(
+						label='陳俊桐',
+						data='陳俊桐'
+					),
+					PostbackTemplateAction(
+						label='董倫弘',
+						data='董倫弘'
+					),
+					PostbackTemplateAction(
+						label='蔡育霖',
+						data='蔡育霖'
+					)
+				]
+			)
 		)
 	)
-#回復函式
-def Reply(event):
+#指令系統
+def Command(event):
 	tempText = event.message.text.split(",")
 	if tempText[0] == "發送" and event.source.user_id == "U5322443a06ba30277383a7f5af47d3f8":
 		line_bot_api.push_message(tempText[1], TextSendMessage(text = tempText[2]))
+		return True
 	else:
-		Ktemp = KeyWord(event)
-		if Ktemp[0]:
-			line_bot_api.reply_message(event.reply_token, 
-				TextSendMessage(text = Ktemp[1]))
-		elif event.message.text == "呼叫":
-			line_bot_api.reply_message(event.reply_token,
-				Button(event))
+		return False
+#回復函式
+def Reply(event):
+	if not Command(event):
+		if  not KeyWord(event):
+			if event.message.text == "呼叫":
+				Button(event)
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
