@@ -31,9 +31,17 @@ def callback():
 	return 'OK'
 #關鍵字
 def KeyWord(event):
-	KeyWordDict = {"泓儒":"高醫彭于晏","殘楓落葉":"61487","牧羊":"咩~"}
+	KeyWordDict = {"泓儒":["text","高醫彭于晏"],
+					"殘楓落葉":["text","61487"],
+					"牧羊":["text","咩~"],
+					"愛你":["sticker","11537","52002743"]}
 	for k in KeyWordDict.keys():
 		if event.message.text.find(k) != -1:
+			if KeyWordDict[k][0] == "text":
+				line_bot_api.reply_message(event.reply_token, TextSendMessage(text = KeyWordDict[k][1]))
+			elif KeyWordDict[k][0] == "sticker":
+				line_bot_api.reply_message(event.reply_token, StickerSendMessage(package_id = KeyWordDict[k][1],
+																				sticker_id = KeyWordDict[k][2]))
 			return [True, KeyWordDict[k]]
 	return [False]
 #按鈕版面
@@ -73,12 +81,6 @@ def Reply(event):
 		elif event.message.text == "呼叫":
 			line_bot_api.reply_message(event.reply_token,
 				Button(event))
-	#elif event.message.text == "取得ID":
-		#line_bot_api.push_message(event.source.user_id,
-			#TextSendMessage(text = event.source.user_id)
-	#else:
-		#line_bot_api.reply_message(event.reply_token,
-			#TextMessage(text = event.message.text))
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
