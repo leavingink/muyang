@@ -7,6 +7,7 @@ from linebot.exceptions import (
 	InvalidSignatureError
 )
 from linebot.models import *
+import requests
 
 app = Flask(__name__)
 
@@ -29,31 +30,60 @@ def callback():
 	except InvalidSignatureError:
 		abort(400)
 	return 'OK'
-#會員系統
+#設定帳號class
+class user:
+	def _init_(self,ID,Name,Situation):
+		self.Nmae = Name
+		self.ID = ID
+		self.Situation = Situation
+#新增一個新使用者
+def Signup(user_id,name):
+	url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
+	payload = {
+		'sheetUrl':"https://docs.google.com/spreadsheets/d/1_YY_Fh0DTULkXeGnN881DjeVsOZOgRFOqPuGgwnGpfg/edit?usp=sharing",
+		'sheetTag':"Sheet1",
+		'data':user_id+','+',-1'
+	}
+	requests.get(url, params=payload)
+#取得所有會員資料
 def GetUserlist():
-	userlist = {}
-	file = open("users","r")
-	while True:
-		temp = file.readline().strip().split(",")
-		if temp[0] == "" : break
-		userlist[temp[0]] = temp[1]
-	file.close()
-	return userlist
-
-#登入系統
-def Login(event, userlist):
+	url = "https://script.google.com/macros/s/AKfycbwVs2Si91yKz6m3utpaPtsttbh_lUQ8LOQM3Zud2hPFxXCgW3u1/exec"
+	payload = {
+		'sheetUrl':"https://docs.google.com/spreadsheets/d/1_YY_Fh0DTULkXeGnN881DjeVsOZOgRFOqPuGgwnGpfg/edit?usp=sharing",
+		'sheetTag':"Sheet1",
+		'row': 1,
+		'col': 1,
+		'endRow': 51,
+		'enCol': 20
+	}
+	resp = requests.get(url, params = payload)
+	temp = resp.text.split(',')
+	userlist = []
 	i = 0
-	for user in userlist.keys():
-		if event.source.user_id == user:
-			return i
-		i+=1
+	while i < len(temp):
+		if temp[i] != "":
+			userlist.append(user(temp[i],temp[i+1],temp[i+2]))
+			i += 3
+		else:
+			break
+	return userlist
+#取得目前使用者的index
+def Login(user_id,userlist):
+	for user in userlist:
+		if user.ID == user_id:
+			return userlist.index(user)
 	return -1
 #寫入資料
-def Update(userlist):
-	file = open("users","w")
-	for user in userlist.keys():
-		file.write(user + "," + userlist[user])
-	file.close()
+def Write(Row,data,Col):
+	url = "https://script.google.com/macros/s/AKfycbyBbQ1lsq4GSoKE0yiU5d6x0z2EseeBNZVTewWlSZhQ6EVrizo/exec"
+	payload{
+		'sheetUrl':"https://docs.google.com/spreadsheets/d/1_YY_Fh0DTULkXeGnN881DjeVsOZOgRFOqPuGgwnGpfg/edit?usp=sharing",
+		'sheetTag':"Sheet1",
+		'data':data,
+		'x':str(Row+1),
+		'y':str(Col+1)
+	}
+	requests.get(url, params = payload)
 #關鍵字系統
 def KeyWord(event):
 	KeyWordDict = {"泓儒":["text","高醫彭于晏"],
@@ -72,30 +102,31 @@ def KeyWord(event):
 	return False
 #按鈕版面
 def Button(event):
-	line_bot_api.reply_message(event.reply_token,
-		TemplateSendMessage(
-			alt_text='yeeee',
-			template=ButtonsTemplate(
-				thumbnail_image_url='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
-				title='Eternal',
-				text='呼叫',
-				actions=[
-					PostbackTemplateAction(
-						label='陳俊桐',
-						data='陳俊桐'
-					),
-					PostbackTemplateAction(
-						label='董倫弘',
-						data='董倫弘'
-					),
-					PostbackTemplateAction(
-						label='蔡育霖',
-						data='蔡育霖'
-					)
-				]
+	if event.message.text == "呼叫":
+		line_bot_api.reply_message(event.reply_token,
+			TemplateSendMessage(
+				alt_text='yeeee',
+				template=ButtonsTemplate(
+					thumbnail_image_url='https://github.com/leavingink/muyang/blob/master/sheep.png?raw=true',
+					title='Eternal',
+					text='呼叫',
+					actions=[
+						PostbackTemplateAction(
+							label='陳俊桐',
+							data='陳俊桐'
+						),
+						PostbackTemplateAction(
+							label='董倫弘',
+							data='董倫弘'
+						),
+						PostbackTemplateAction(
+							label='蔡育霖',
+							data='蔡育霖'
+						)
+					]
+				)
 			)
 		)
-	)
 #指令系統
 def Command(event):
 	tempText = event.message.text.split(",")
@@ -106,23 +137,21 @@ def Command(event):
 		return False
 #回復函式
 def Reply(event, userlist):
-	if not Command(event):
-		if  not KeyWord(event):
-			if event.message.text == "呼叫":
-				Button(event)
-			else:
-				if userlist[event.source.user_id] == "-1":
+	if userlist[clientindex].Situation == '-1':
+		if not Command(event):
+			if  not KeyWord(event):
+				if not Button(event):
 					line_bot_api.reply_message(event.reply_token,
 						TextSendMessage(text = "你知道台灣最稀有、最浪漫的鳥是哪一種鳥嗎?"))
-				userlist[event.source.user_id] = "0"
-				else:
-					if event.message.text == "黑面琵鷺":
-						line_bot_api.reply_message(event.reply_token,
-							TextSendMessage(text = "你竟然知道答案!!!"))
+					Write(clientindex,'0',3)
 					else:
-						line_bot_api.reply_message(event.reply_token,
-							TextSendMessage(text = "答案是：黑面琵鷺!!!因為每年冬天，他們都會到台灣來\"壁咚\""))
-					userlist[event.source.user_id] = "-1"
+						if event.message.text == "黑面琵鷺":
+							line_bot_api.reply_message(event.reply_token,
+								TextSendMessage(text = "你竟然知道答案!!!"))
+						else:
+							line_bot_api.reply_message(event.reply_token,
+								TextSendMessage(text = "答案是：黑面琵鷺!!!因為每年冬天，他們都會到台灣來\"壁咚\""))
+						userlist[event.source.user_id] = "-1"
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
